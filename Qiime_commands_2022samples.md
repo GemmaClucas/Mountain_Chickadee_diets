@@ -7,7 +7,7 @@ Gemma Clucas
 
 It is saved on my solid state hardrive in the ANML folder.
 
-    cd /Users/gemmaclucas/GitHub/Fecal_metabarcoding/MountainChickadees/2022
+    cd /Users/gemmaclucas/GitHub/Fecal_metabarcoding/Mountain_Chickadee_diets/2022
     conda activate qiime2-2021.4
 
     qiime tools import\
@@ -103,3 +103,30 @@ Using the same settings that seemed to work well for the BTBW samples.
         --m-input-file denoise_Plate$K.qza\
         --o-visualization denoise_Plate$K.qzv
     done
+
+To view the rep-seqs:
+
+    qiime feature-table tabulate-seqs \
+      --i-data rep-seqs_Plate1.qza \
+      --o-visualization rep-seqs_Plate1
+
+## 4. Assign taxonomy
+
+I am going to use the same COI database and classifier that Devon
+O’Rourke trained. Details
+(here)\[<https://github.com/GemmaClucas/Hubbard-Brook-Warbler-Diets#5-coi-database>\].
+
+I have copied the database sequences (bold_anml_seqs.qza), the taxonomy
+strings that go with each sequence (bold_anml_taxa.qza) and the trained
+classifier (bold_anml_classifier.qza) into this folder.
+
+    conda activate qiime2-2019.10
+
+    qiime feature-classifier classify-sklearn \
+      --i-classifier bold_anml_classifier.qza \
+      --i-reads rep-seqs_Plate1.qza \
+      --o-classification taxonomy.qza
+      
+    qiime metadata tabulate \
+      --m-input-file taxonomy.qza \
+      --o-visualization taxonomy.qzv
