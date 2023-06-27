@@ -107,11 +107,16 @@ for K in {1..1}; do
 done
 ```
 
-To view the rep-seqs:
+To view the rep-seqs and table:
 ```
 qiime feature-table tabulate-seqs \
   --i-data rep-seqs_Plate1.qza \
   --o-visualization rep-seqs_Plate1
+  
+qiime feature-table summarize \
+    --i-table table_Plate1.qza \
+    --m-sample-metadata-file metadata.txt \
+    --o-visualization table_Plate1
 ```
 
 ## 4. Assign taxonomy
@@ -132,3 +137,105 @@ qiime metadata tabulate \
   --m-input-file taxonomy.qza \
   --o-visualization taxonomy.qzv
 ```
+
+## 5. Make some barplots
+
+Just to see what's in the samples.
+
+```
+qiime taxa barplot \
+  --i-table table_Plate1.qza \
+  --i-taxonomy taxonomy.qza \
+  --m-metadata-file metadata.txt \
+  --o-visualization barplot_before_filtering.qzv
+```
+
+## 6. Remove non-arthropod reads
+
+```
+qiime taxa filter-table \
+  --i-table table_Plate1.qza \
+  --i-taxonomy taxonomy.qza \
+  --p-include Arthropoda \
+  --o-filtered-table table_Arthropoda.qza
+  
+qiime feature-table summarize \
+    --i-table table_Arthropoda.qza \
+    --m-sample-metadata-file metadata.txt \
+    --o-visualization table_Arthropoda
+```
+After removing non-arthropod reads, one of the blanks (34-3) had some arthropod reads, but it's only 14 reads so it will be dropped when we rarefy.
+
+## 7. Calculate alpha-rarefaction curves
+
+First we have to collapse the taxonomy to the species level.
+```
+qiime taxa collapse \
+  --i-table table_Arthropoda.qza \
+  --i-taxonomy taxonomy.qza \
+  --p-level 7 \
+  --o-collapsed-table table_Arthropoda_collapsed.qza
+
+qiime diversity alpha-rarefaction \
+  --i-table table_Arthropoda_collapsed.qza \
+  --m-metadata-file metadata.txt \
+  --p-min-depth 500 \
+  --p-max-depth 30000 \
+  --o-visualization alpha-rarefaction-500-30000
+  
+qiime diversity alpha-rarefaction \
+  --i-table table_Arthropoda_collapsed.qza \
+  --m-metadata-file metadata.txt \
+  --p-min-depth 500 \
+  --p-max-depth 10000 \
+  --o-visualization alpha-rarefaction-500-10000
+```
+
+At this point I looked into alternatives to rarefying and came across the [SRS plugin](https://forum.qiime2.org/t/q2-srs-qiime2-plugin-for-library-size-normalization-by-scaling-with-ranked-subsampling-srs/17661), which is an alternative (and apparently better?) than rarefying.
+
+```
+qiime srs SRScurve \
+  --i-table table_Arthropoda.qza \
+  --p-step 100 \
+  --p-max-sample-size 10000 \
+  --p-rarefy-comparison \
+  --p-rarefy-comparison-legend \
+  --p-rarefy-repeats 100 \
+  --p-srs-color 'blue' \
+  --p-rarefy-color '#333333' \
+  --o-visualization SRScurve-plot_10000.qzv \
+  --verbose
+```
+
+Looking at the rarefaction curves, SRS plots, and the [SRS shiny app](https://vitorheidrich.shinyapps.io/srsshinyapp/), I think I am going to rarefy to a depth of 2722 reads, since that will retain 90% or more of the diversity in all of the samples and minimise the number of samples we have to drop. The next sample has 1856 reads, which would mean losing a lot of taxa from each sample.
+
+Note that for Kim's 3 samples that I included on this plate, a higher depth will be needed as those appear to be more diverse.
+
+## 8. Normalise table
+
+I am going to use SRS rather than rarefying for normalising the samples.
+
+```
+qiime srs SRS \
+  --i-table table_Arthropoda.qza \
+  --p-c-min 2722 \
+  --o-normalized-table table_normalised2722.qza \
+  --verbose
+  
+qiime feature-table summarize \
+    --i-table table_normalised2722.qza \
+    --m-sample-metadata-file metadata.txt \
+    --o-visualization table_normalised2722
+```
+
+## 9. Remake barplots
+
+```
+qiime taxa barplot \
+  --i-table table_normalised2722.qza \
+  --i-taxonomy taxonomy.qza \
+  --m-metadata-file metadata.txt \
+  --o-visualization barplot_normalised2722.qzv
+```
+
+I downloaded the CSV from here, to send to Lauren after editing.
