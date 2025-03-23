@@ -223,8 +223,25 @@ rarefy.
 
 ### 2023 Samples
 
-Same as above. BLANK-MOCH-1-1 has 4 reads, while BLANK-MOCH-1-2 has 134
-reads, so this is nothing compared to the average depth of the samples.
+I am also going to remove reads that were only classified to Arthropoda
+and not beyond, since they are not giving us any useful information. So
+that means I can use the `--p-include` flag to include anything that
+also has a class designation, since they all have `Arthropoda;c_` in the
+taxonomy string.
+
+BLANK-MOCH-1-1 has 4 reads, while BLANK-MOCH-1-2 has 134 reads, so this
+is nothing compared to the average depth of the samples.
+
+    qiime taxa filter-table \
+      --i-table table_Plate1.qza \
+      --i-taxonomy taxonomy.qza \
+      --p-include "Arthropoda;c_" \
+      --o-filtered-table table_ArthropodaC.qza
+      
+    qiime feature-table summarize \
+        --i-table table_ArthropodaC.qza \
+        --m-sample-metadata-file metadata.txt \
+        --o-visualization table_ArthropodaC
 
 ## 7. Calculate alpha-rarefaction curves
 
@@ -241,7 +258,7 @@ First we have to collapse the taxonomy to the species level.
       --m-metadata-file metadata.txt \
       --p-min-depth 500 \
       --p-max-depth 30000 \
-      --o-visualization alpha-rarefaction-500-30000
+      --o-visualization alpha-rarefactionC-500-30000
       
     qiime diversity alpha-rarefaction \
       --i-table table_Arthropoda_collapsed.qza \
@@ -279,12 +296,35 @@ depth will be needed as those appear to be more diverse.
 
 ### 2023 Samples
 
-Same code as above. The alpha rarefaction curves look like there’s more
-diversity in these samples compared to 2022. Looking at the SRS curves
-(just by uploading the collapsed arthropod table to the SRS shiny app)
-then if I rarefy to the same depth as the 2022 samples (2722 reads) then
-I will retain 52% of the samples and 84% of the global species richness.
-This is probably fine as the species I am losing will be rare anyway.
+The alpha rarefaction curves look like there’s more diversity in these
+samples compared to 2022, with a plateau in diversity at around 7000
+reads. Looking at the SRS curves (just by uploading the collapsed
+arthropodC table to the SRS shiny app) then if I rarefy to the same
+depth as the 2022 samples (2722 reads) then I will retain 52% of the
+samples and 84% of the global species richness. If I rarefy to 7000
+reads, then I only retain 43 samples out of 112, but I retain 86% of the
+global species richness. So it is a trade-off between samples and depth.
+But do I need to rarefy at all? Only to calculate diversity stats.
+
+    qiime taxa collapse \
+      --i-table table_ArthropodaC.qza \
+      --i-taxonomy taxonomy.qza \
+      --p-level 7 \
+      --o-collapsed-table table_ArthropodaC_collapsed.qza
+
+    qiime diversity alpha-rarefaction \
+      --i-table table_ArthropodaC_collapsed.qza \
+      --m-metadata-file metadata.txt \
+      --p-min-depth 500 \
+      --p-max-depth 30000 \
+      --o-visualization alpha-rarefactionC-500-30000
+      
+    qiime diversity alpha-rarefaction \
+      --i-table table_ArthropodaC_collapsed.qza \
+      --m-metadata-file metadata.txt \
+      --p-min-depth 500 \
+      --p-max-depth 10000 \
+      --o-visualization alpha-rarefactionC-500-10000
 
 Reasons for increased diversity in 2023 samples: more insects available?
 Or technical due to doing these extractions by hand?
@@ -304,7 +344,9 @@ I am going to use SRS rather than rarefying for normalising the samples.
         --m-sample-metadata-file metadata.txt \
         --o-visualization table_normalised2722
 
-Same for 2023 samples.
+Have not run for 2023 samples after removing reads that could not be
+classified to class level. I think I will send Lauren the un-rarefied
+dataset and ask her what she wants to do with it.
 
 ## 9. Remake barplots
 
@@ -316,7 +358,49 @@ Same for 2023 samples.
 
 I downloaded the CSV from here, to send to Lauren after editing.
 
-**Same for 2023 samples, but before I send to Lauren, do I want to go in
-and remove sequences that are not classified beyond Arthropoda or
-Insecta etc, since these are perhaps masking more diversity in those
-samples?**
+### 2023 Samples
+
+Since I have decided not to normalise, as above, this is just the
+barplot before rarefying.
+
+    qiime taxa barplot \
+      --i-table table_ArthropodaC.qza \
+      --i-taxonomy taxonomy.qza \
+      --m-metadata-file metadata.txt \
+      --o-visualization barplot_ArthropodaC.qzv
+
+## 10. What if I run the MiFish taxonomy classification on the sequences?
+
+Checking for contamination…
+
+    ../../AP_SG_Penguins_2022/MiFish/mktaxa_singlethreaded.py \
+      ../../AP_SG_Penguins_2022/MiFish/ncbi-refseqs-withHuman.qza \
+      ../../AP_SG_Penguins_2022/MiFish/ncbi-taxonomy-withHuman.qza \
+      rep-seqs_Plate1.qza
+
+The mktaxa script ran for a few minutes but then threw this error
+`TypeError: 'NoneType' object is not subscriptable` which apparently
+happens when a function returns `None` but you try to access an index or
+key from its return value.
+
+I’m going to try running this on the Mandarte data instead to see
+whether it works. I’ll just put the files in this folder for now though
+since I don’t have a repo for Mandarte.
+
+    cd ../Mandarte_diet_2024/
+
+    ../../AP_SG_Penguins_2022/MiFish/mktaxa_singlethreaded.py \
+      ../../AP_SG_Penguins_2022/MiFish/ncbi-refseqs-withHuman.qza \
+      ../../AP_SG_Penguins_2022/MiFish/ncbi-taxonomy-withHuman.qza \
+      rep-seqs_Plate1.qza
+
+This failed with the same error so does that mean just nothing was
+classified? Maybe I should try with a version of qiime on the server and
+the original mktaxa.py script. The original mktaxa script just hung with
+the multithreaded version and the single threaded version quit with the
+same error that I got running it on my laptop.
+
+I went through the MOCH Unassigned reads and a bunch of the reads that
+were only assigned to Animalia, and none of them were fish.
+
+I should do the same for the Mandarte dataset though.
