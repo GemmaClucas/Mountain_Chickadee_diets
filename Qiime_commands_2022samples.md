@@ -22,6 +22,29 @@ It is saved on my solid state hardrive in the ANML folder.
         --o-visualization demux_Plate$K.qzv
     done
 
+### 2023 samples
+
+The data for both plates was combined at UNH, so it’s all in one folder
+on my hard drive SSD_Data1.
+
+    /Users/gc547/Dropbox/GitHub_copied/Fecal_metabarcoding/Mountain_Chickadee_diets/2023
+    conda activate qiime2-amplicon-2024.10
+
+    qiime tools import\
+      --type 'SampleData[PairedEndSequencesWithQuality]'\
+      --input-path /Volumes/Data_SS1/ANML/LaurenWhitenack_MountainChickadees/Plate1and2_2023/reads  \
+      --input-format CasavaOneEightSingleLanePerSampleDirFmt\
+      --output-path demux_plate1.qza
+      
+    for K in {1..1}; do
+      qiime demux summarize \
+        --i-data demux_Plate$K.qza \
+        --o-visualization demux_Plate$K.qzv
+    done
+
+Blanks look good. Lots of variability in read numbers between samples
+though.
+
 ## 2. Trim primers using cutadapt
 
 The primer sequences are:
@@ -79,7 +102,12 @@ To see how much data passed the filter for each sample:
 
 88% this time.
 
-## 3. Denoise with Dada2 START HERE
+### 2023 Samples
+
+Exact same code as above. 82% kept after the first trim, 88% after the
+second, as before.
+
+## 3. Denoise with Dada2
 
 Using the same settings that seemed to work well for the BTBW samples.
 
@@ -115,6 +143,11 @@ To view the rep-seqs and table:
         --m-sample-metadata-file metadata.txt \
         --o-visualization table_Plate1
 
+### 2023 Samples
+
+Exact same code as above. Still some reads in one of the extraction
+blanks, but the number is low compared to the samples.
+
 ## 4. Assign taxonomy
 
 I am going to use the same COI database and classifier that Devon
@@ -136,6 +169,26 @@ classifier (bold_anml_classifier.qza) into this folder.
       --m-input-file taxonomy.qza \
       --o-visualization taxonomy.qzv
 
+### 2023 Samples
+
+I can’t use the old classifier because I can’t run the old version of
+qiime on this laptop I don’t think (and it’s not available on the
+cluster). But I trained a classifier using this version for Tasos and
+Kim’s projects, training it with the database that Devon had trained the
+previous classifier on, so that’s good. Kim noted that the BOLD database
+is a lot larger now, so if I wanted to train a classifier on a newer
+version of the database then I’d have to re-run both the 2022 and 2023
+samples with that.
+
+    qiime feature-classifier classify-sklearn \
+      --i-classifier classifier.qza \
+      --i-reads rep-seqs_Plate1.qza \
+      --o-classification taxonomy.qza
+      
+    qiime metadata tabulate \
+      --m-input-file taxonomy.qza \
+      --o-visualization taxonomy.qzv
+
 ## 5. Make some barplots
 
 Just to see what’s in the samples.
@@ -145,6 +198,11 @@ Just to see what’s in the samples.
       --i-taxonomy taxonomy.qza \
       --m-metadata-file metadata.txt \
       --o-visualization barplot_before_filtering.qzv
+
+### 2023 Samples
+
+Same as above. Massive diversity of insects. Also some rodent and bear
+DNA!
 
 ## 6. Remove non-arthropod reads
 
@@ -162,6 +220,11 @@ Just to see what’s in the samples.
 After removing non-arthropod reads, one of the blanks (34-3) had some
 arthropod reads, but it’s only 14 reads so it will be dropped when we
 rarefy.
+
+### 2023 Samples
+
+Same as above. BLANK-MOCH-1-1 has 4 reads, while BLANK-MOCH-1-2 has 134
+reads, so this is nothing compared to the average depth of the samples.
 
 ## 7. Calculate alpha-rarefaction curves
 
@@ -214,6 +277,18 @@ mean losing a lot of taxa from each sample.
 Note that for Kim’s 3 samples that I included on this plate, a higher
 depth will be needed as those appear to be more diverse.
 
+### 2023 Samples
+
+Same code as above. The alpha rarefaction curves look like there’s more
+diversity in these samples compared to 2022. Looking at the SRS curves
+(just by uploading the collapsed arthropod table to the SRS shiny app)
+then if I rarefy to the same depth as the 2022 samples (2722 reads) then
+I will retain 52% of the samples and 84% of the global species richness.
+This is probably fine as the species I am losing will be rare anyway.
+
+Reasons for increased diversity in 2023 samples: more insects available?
+Or technical due to doing these extractions by hand?
+
 ## 8. Normalise table
 
 I am going to use SRS rather than rarefying for normalising the samples.
@@ -229,6 +304,8 @@ I am going to use SRS rather than rarefying for normalising the samples.
         --m-sample-metadata-file metadata.txt \
         --o-visualization table_normalised2722
 
+Same for 2023 samples.
+
 ## 9. Remake barplots
 
     qiime taxa barplot \
@@ -238,3 +315,8 @@ I am going to use SRS rather than rarefying for normalising the samples.
       --o-visualization barplot_normalised2722.qzv
 
 I downloaded the CSV from here, to send to Lauren after editing.
+
+**Same for 2023 samples, but before I send to Lauren, do I want to go in
+and remove sequences that are not classified beyond Arthropoda or
+Insecta etc, since these are perhaps masking more diversity in those
+samples?**
