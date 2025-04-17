@@ -369,6 +369,15 @@ barplot before rarefying.
       --m-metadata-file metadata.txt \
       --o-visualization barplot_ArthropodaC.qzv
 
+## Can I output the table with the sequences?
+
+    qiime metadata tabulate \
+      --m-input-file rep-seqs_Plate1.qza \
+      --m-input-file taxonomy.qza \
+      --o-visualization tabulated-feature-metadata.qzv
+
+Yes this works!
+
 ## 10. What if I run the MiFish taxonomy classification on the sequences?
 
 Checking for contamination…
