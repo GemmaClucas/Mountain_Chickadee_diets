@@ -360,6 +360,17 @@ qiime metadata tabulate \
 ```
 Yes this works!
 
+Do the same for the 2022 samples:
+
+```
+cd ../2022/
+
+qiime metadata tabulate \
+  --m-input-file rep-seqs_Plate1.qza \
+  --m-input-file taxonomy.qza \
+  --o-visualization tabulated-feature-metadata.qzv
+```
+
 ## 10. What if I run the MiFish taxonomy classification on the sequences?
 
 Checking for contamination...
