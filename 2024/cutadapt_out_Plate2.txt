@@ -1,0 +1,503 @@
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2-MOCK_S492_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2-MOCK_S492_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2-MOCK_S492_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2-MOCK_S492_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+Finished in 0.752 s (20.567 µs/read; 2.92 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:             36,577
+  Read 1 with adapter:                  36,181 (98.9%)
+  Read 2 with adapter:                  35,810 (97.9%)
+
+== Read fate breakdown ==
+Pairs that were too short:                   0 (0.0%)
+Pairs written (passing filters):        36,577 (100.0%)
+
+Total basepairs processed:    18,361,654 bp
+  Read 1:     9,180,827 bp
+  Read 2:     9,180,827 bp
+Quality-trimmed:                       0 bp (0.0%)
+  Read 1:             0 bp
+  Read 2:             0 bp
+Total written (filtered):     15,046,092 bp (81.9%)
+  Read 1:     7,550,530 bp
+  Read 2:     7,495,562 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: GGATTTGGAAATTGATTAGTWCC; Type: regular 3'; Length: 23; Trimmed: 36181 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-23 bp: 2
+
+Bases preceding removed adapters:
+  A: 38.5%
+  C: 0.1%
+  G: 4.5%
+  T: 56.9%
+  none/other: 0.0%
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+40	4	0.0	2	4
+41	4	0.0	2	4
+43	1	0.0	2	1
+44	247	0.0	2	218 27 2
+45	34035	0.0	2	31320 2214 501
+46	1823	0.0	2	1689 106 28
+47	48	0.0	2	41 5 2
+48	12	0.0	2	11 1
+52	1	0.0	2	1
+72	1	0.0	2	1
+83	1	0.0	2	1
+126	3	0.0	2	2 1
+212	1	0.0	2	1
+
+
+=== Second read: Adapter 2 ===
+
+Sequence: CCAATATCTTTATGATTTGTTGACC; Type: regular 3'; Length: 25; Trimmed: 35810 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-25 bp: 2
+
+Bases preceding removed adapters:
+  A: 2.1%
+  C: 0.4%
+  G: 0.3%
+  T: 97.1%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'T' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+41	1	0.0	2	0 0 1
+44	1	0.0	2	1
+45	3	0.0	2	3
+46	216	0.0	2	195 15 6
+47	33578	0.0	2	30915 2214 449
+48	1921	0.0	2	1732 147 42
+49	69	0.0	2	64 3 2
+50	9	0.0	2	8 0 1
+51	5	0.0	2	5
+52	1	0.0	2	1
+53	1	0.0	2	1
+74	1	0.0	2	1
+85	1	0.0	2	1
+128	2	0.0	2	2
+129	1	0.0	2	1
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-300C_S494_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-300C_S494_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-300C_S494_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-300C_S494_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+Finished in 0.023 s (35.616 µs/read; 1.68 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:                642
+  Read 1 with adapter:                     630 (98.1%)
+  Read 2 with adapter:                     620 (96.6%)
+
+== Read fate breakdown ==
+Pairs that were too short:                   0 (0.0%)
+Pairs written (passing filters):           642 (100.0%)
+
+Total basepairs processed:       322,284 bp
+  Read 1:       161,142 bp
+  Read 2:       161,142 bp
+Quality-trimmed:                       0 bp (0.0%)
+  Read 1:             0 bp
+  Read 2:             0 bp
+Total written (filtered):        264,919 bp (82.2%)
+  Read 1:       132,852 bp
+  Read 2:       132,067 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: GGATTTGGAAATTGATTAGTWCC; Type: regular 3'; Length: 23; Trimmed: 630 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-23 bp: 2
+
+Bases preceding removed adapters:
+  A: 98.4%
+  C: 0.0%
+  G: 0.0%
+  T: 1.6%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'A' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+43	4	0.0	2	4
+44	77	0.0	2	71 3 3
+45	527	0.0	2	480 35 12
+46	19	0.0	2	17 1 1
+47	3	0.0	2	3
+
+
+=== Second read: Adapter 2 ===
+
+Sequence: CCAATATCTTTATGATTTGTTGACC; Type: regular 3'; Length: 25; Trimmed: 620 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-25 bp: 2
+
+Bases preceding removed adapters:
+  A: 1.6%
+  C: 0.3%
+  G: 0.5%
+  T: 97.6%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'T' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+45	5	0.0	2	5
+46	78	0.0	2	72 5 1
+47	515	0.0	2	465 39 11
+48	21	0.0	2	20 1
+49	1	0.0	2	1
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-575C_S495_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-575C_S495_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-575C_S495_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-575C_S495_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+Finished in 0.107 s (20.998 µs/read; 2.86 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:              5,075
+  Read 1 with adapter:                   5,010 (98.7%)
+  Read 2 with adapter:                   4,966 (97.9%)
+
+== Read fate breakdown ==
+Pairs that were too short:                   0 (0.0%)
+Pairs written (passing filters):         5,075 (100.0%)
+
+Total basepairs processed:     2,547,650 bp
+  Read 1:     1,273,825 bp
+  Read 2:     1,273,825 bp
+Quality-trimmed:                       0 bp (0.0%)
+  Read 1:             0 bp
+  Read 2:             0 bp
+Total written (filtered):      2,050,797 bp (80.5%)
+  Read 1:     1,029,389 bp
+  Read 2:     1,021,408 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: GGATTTGGAAATTGATTAGTWCC; Type: regular 3'; Length: 23; Trimmed: 5010 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-23 bp: 2
+
+Bases preceding removed adapters:
+  A: 92.2%
+  C: 0.0%
+  G: 4.9%
+  T: 2.9%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'A' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+27	1	0.0	2	1
+44	27	0.0	2	24 2 1
+45	4717	0.0	2	4283 370 64
+46	150	0.0	2	138 10 2
+47	7	0.0	2	5 2
+48	3	0.0	2	3
+49	1	0.0	2	1
+50	1	0.0	2	1
+227	1	0.0	2	1
+228	101	0.0	2	97 3 1
+229	1	0.0	2	1
+
+
+=== Second read: Adapter 2 ===
+
+Sequence: CCAATATCTTTATGATTTGTTGACC; Type: regular 3'; Length: 25; Trimmed: 4966 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-25 bp: 2
+
+Bases preceding removed adapters:
+  A: 0.3%
+  C: 1.0%
+  G: 0.3%
+  T: 98.4%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'T' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+45	1	0.0	2	1
+46	24	0.0	2	20 4
+47	4689	0.0	2	4246 360 83
+48	137	0.0	2	122 14 1
+49	4	0.0	2	4
+50	3	0.0	2	3
+54	5	0.0	2	4 1
+230	100	0.0	2	98 2
+231	3	0.0	2	3
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-585C_S496_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-585C_S496_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-585C_S496_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-585C_S496_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+Finished in 0.335 s (24.326 µs/read; 2.47 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:             13,754
+  Read 1 with adapter:                  13,548 (98.5%)
+  Read 2 with adapter:                  13,470 (97.9%)
+
+== Read fate breakdown ==
+Pairs that were too short:                   0 (0.0%)
+Pairs written (passing filters):        13,754 (100.0%)
+
+Total basepairs processed:     6,904,508 bp
+  Read 1:     3,452,254 bp
+  Read 2:     3,452,254 bp
+Quality-trimmed:                       0 bp (0.0%)
+  Read 1:             0 bp
+  Read 2:             0 bp
+Total written (filtered):      5,530,329 bp (80.1%)
+  Read 1:     2,777,061 bp
+  Read 2:     2,753,268 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: GGATTTGGAAATTGATTAGTWCC; Type: regular 3'; Length: 23; Trimmed: 13548 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-23 bp: 2
+
+Bases preceding removed adapters:
+  A: 88.8%
+  C: 0.0%
+  G: 3.7%
+  T: 7.6%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'A' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+38	7	0.0	2	7
+39	436	0.0	2	395 36 5
+40	20	0.0	2	17 3
+41	3	0.0	2	2 1
+42	1	0.0	2	1
+44	107	0.0	2	85 16 6
+45	11970	0.0	2	10574 1133 263
+46	597	0.0	2	523 62 12
+47	28	0.0	2	25 3
+48	2	0.0	2	1 1
+49	2	0.0	2	2
+51	2	0.0	2	2
+53	2	0.0	2	2
+59	1	0.0	2	1
+227	1	0.0	2	1
+228	367	0.0	2	352 15
+229	2	0.0	2	2
+
+
+=== Second read: Adapter 2 ===
+
+Sequence: CCAATATCTTTATGATTTGTTGACC; Type: regular 3'; Length: 25; Trimmed: 13470 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-25 bp: 2
+
+Bases preceding removed adapters:
+  A: 10.4%
+  C: 0.4%
+  G: 0.1%
+  T: 89.0%
+  none/other: 0.1%
+WARNING:
+    The adapter is preceded by 'T' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+40	4	0.0	2	4
+41	430	0.0	2	387 39 4
+42	24	0.0	2	23 1
+43	5	0.0	2	4 1
+44	1	0.0	2	1
+46	96	0.0	2	84 11 1
+47	11937	0.0	2	10768 986 183
+48	559	0.0	2	485 58 16
+49	34	0.0	2	28 5 1
+50	5	0.0	2	4 1
+51	1	0.0	2	1
+52	2	0.0	2	2
+230	367	0.0	2	356 10 1
+231	3	0.0	2	3
+234	2	0.0	2	2
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-586C_S497_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-586C_S497_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-586C_S497_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-586C_S497_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+Finished in 0.066 s (23.357 µs/read; 2.57 M reads/minute).
+
+=== Summary ===
+
+Total read pairs processed:              2,840
+  Read 1 with adapter:                   2,788 (98.2%)
+  Read 2 with adapter:                   2,773 (97.6%)
+
+== Read fate breakdown ==
+Pairs that were too short:                   0 (0.0%)
+Pairs written (passing filters):         2,840 (100.0%)
+
+Total basepairs processed:     1,425,680 bp
+  Read 1:       712,840 bp
+  Read 2:       712,840 bp
+Quality-trimmed:                       0 bp (0.0%)
+  Read 1:             0 bp
+  Read 2:             0 bp
+Total written (filtered):      1,169,788 bp (82.1%)
+  Read 1:       587,329 bp
+  Read 2:       582,459 bp
+
+=== First read: Adapter 1 ===
+
+Sequence: GGATTTGGAAATTGATTAGTWCC; Type: regular 3'; Length: 23; Trimmed: 2788 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-23 bp: 2
+
+Bases preceding removed adapters:
+  A: 86.1%
+  C: 0.6%
+  G: 10.2%
+  T: 3.1%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'A' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+38	3	0.0	2	3
+39	14	0.0	2	13 1
+44	26	0.0	2	18 7 1
+45	2604	0.0	2	2327 225 52
+46	111	0.0	2	98 11 2
+47	21	0.0	2	19 2
+48	8	0.0	2	7 0 1
+50	1	0.0	2	1
+
+
+=== Second read: Adapter 2 ===
+
+Sequence: CCAATATCTTTATGATTTGTTGACC; Type: regular 3'; Length: 25; Trimmed: 2773 times
+
+Minimum overlap: 3
+No. of allowed errors:
+1-9 bp: 0; 10-19 bp: 1; 20-25 bp: 2
+
+Bases preceding removed adapters:
+  A: 3.5%
+  C: 0.4%
+  G: 0.4%
+  T: 95.7%
+  none/other: 0.0%
+WARNING:
+    The adapter is preceded by 'T' extremely often.
+    The provided adapter sequence could be incomplete at its 5' end.
+    Ignore this warning when trimming primers.
+
+Overview of removed sequences
+length	count	expect	max.err	error counts
+41	18	0.0	2	11 7
+46	20	0.0	2	16 3 1
+47	2583	0.0	2	2321 217 45
+48	131	0.0	2	117 10 4
+49	17	0.0	2	16 1
+50	3	0.0	2	3
+51	1	0.0	2	0 1
+
+
+WARNING:
+    One or more of your adapter sequences may be incomplete.
+    Please see the detailed output above.
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-BLANK-5_S498_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-BLANK-5_S498_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-BLANK-5_S498_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-BLANK-5_S498_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+No reads processed!
+This is cutadapt 4.9 with Python 3.10.14
+Command line parameters: --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/PCR-BLANK-MOCH-2-1_S493_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/PCR-BLANK-MOCH-2-1_S493_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/PCR-BLANK-MOCH-2-1_S493_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/PCR-BLANK-MOCH-2-1_S493_L001_R2_001.fastq.gz
+Processing paired-end reads on 1 core ...
+No reads processed!
+Running external command line application. This may print messages to stdout and/or stderr.
+The commands to be run are below. These commands cannot be manually re-run as they will depend on temporary files that no longer exist.
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2-MOCK_S492_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2-MOCK_S492_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2-MOCK_S492_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2-MOCK_S492_L001_R2_001.fastq.gz
+
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-300C_S494_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-300C_S494_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-300C_S494_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-300C_S494_L001_R2_001.fastq.gz
+
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-575C_S495_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-575C_S495_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-575C_S495_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-575C_S495_L001_R2_001.fastq.gz
+
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-585C_S496_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-585C_S496_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-585C_S496_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-585C_S496_L001_R2_001.fastq.gz
+
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-586C_S497_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-2024-586C_S497_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-586C_S497_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-2024-586C_S497_L001_R2_001.fastq.gz
+
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-BLANK-5_S498_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/MOCH-BLANK-5_S498_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-BLANK-5_S498_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/MOCH-BLANK-5_S498_L001_R2_001.fastq.gz
+
+
+Command: cutadapt --cores 1 --error-rate 0.1 --times 1 --overlap 3 --minimum-length 1 -q 0,0 --quality-base 33 -o /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/PCR-BLANK-MOCH-2-1_S493_L001_R1_001.fastq.gz -p /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/processes/52188-1775761075.625527@gc547/tmp/q2-OutPath-bl8a2r5o/PCR-BLANK-MOCH-2-1_S493_L001_R2_001.fastq.gz --adapter GGATTTGGAAATTGATTAGTWCC -A CCAATATCTTTATGATTTGTTGACC /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/PCR-BLANK-MOCH-2-1_S493_L001_R1_001.fastq.gz /var/folders/3b/9268n4gd14q1jk4dbgljk0pc0000gr/T/qiime2/gc547/data/fe5fcaec-ea2d-46e2-9b65-6709ba7d4199/data/PCR-BLANK-MOCH-2-1_S493_L001_R2_001.fastq.gz
+
+Saved SampleData[PairedEndSequencesWithQuality] to: trimd_Plate2.qza
