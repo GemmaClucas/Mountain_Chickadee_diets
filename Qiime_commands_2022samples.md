@@ -1,4 +1,4 @@
-Qiime2 commands for 2022 and 2023 MOCH samples
+Qiime2 commands for 2022-2024 MOCH samples
 ================
 Gemma Clucas
 2023-05-08
@@ -44,6 +44,32 @@ sequencing run at UNH, so it’s all in one folder.
 
 Blanks look very clean. Lots of variability in read numbers between
 samples though.
+
+### 2024 samples
+
+Samples are mostly on MOCH-2024-1 with a handful on MOCH-2024-2
+alongside woodpecker samples.
+
+    /Users/gc547/Dropbox/GitHub_copied/Fecal_metabarcoding/Mountain_Chickadee_diets/2024
+    conda activate qiime2-amplicon-2024.10
+
+    qiime tools import\
+      --type 'SampleData[PairedEndSequencesWithQuality]'\
+      --input-path /Volumes/Data_SS1/ANML/LaurenWhitenack_MountainChickadees/2024_samples/MOCH-2024-1/MOCH_reads  \
+      --input-format CasavaOneEightSingleLanePerSampleDirFmt\
+      --output-path demux_plate1.qza
+      
+    qiime tools import\
+      --type 'SampleData[PairedEndSequencesWithQuality]'\
+      --input-path /Volumes/Data_SS1/ANML/LaurenWhitenack_MountainChickadees/2024_samples/MOCH-2024-2/MOCH_reads  \
+      --input-format CasavaOneEightSingleLanePerSampleDirFmt\
+      --output-path demux_plate2.qza
+      
+    for K in {1..2}; do
+      qiime demux summarize \
+        --i-data demux_Plate$K.qza \
+        --o-visualization demux_Plate$K.qzv
+    done
 
 ## 2. Trim primers using cutadapt
 
@@ -107,6 +133,11 @@ To see how much data passed the filter for each sample:
 Exact same code as above. 82% kept after the first trim, 88% after the
 second, as before.
 
+### 2024 Samples
+
+Exact same code as above but with the for loop doing two plates. 80-82%
+kept after the first trim, 88% after the second, as before.
+
 ## 3. Denoise with Dada2
 
 Using the same settings that seemed to work well for the BTBW samples.
@@ -137,21 +168,53 @@ average, so this is plenty to ensure proper merging.
         --o-visualization denoise_Plate$K.qzv
     done
 
-To view the rep-seqs and table:
+To view the rep-seqs and tables:
 
-    qiime feature-table tabulate-seqs \
-      --i-data rep-seqs_Plate1.qza \
-      --o-visualization rep-seqs_Plate1
-      
-    qiime feature-table summarize \
-        --i-table table_Plate1.qza \
+    for K in {1..1}; do  
+      qiime feature-table tabulate-seqs \
+        --i-data rep-seqs_Plate$K.qza \
+        --o-visualization rep-seqs_Plate$K
+    done
+
+    for K in {1..1}; do  
+      qiime feature-table summarize \
+        --i-table table_Plate$K.qza \
         --m-sample-metadata-file metadata.txt \
-        --o-visualization table_Plate1
+        --o-visualization table_Plate$K
+    done
 
 ### 2023 Samples
 
 Exact same code as above. Still some reads in one of the extraction
 blanks, but the number is very low compared to the samples.
+
+### 2024 Samples
+
+Exact same code as above but with the for loop going through both
+plates.
+
+Since there are two plates of data, we need to merge before assigning
+taxonomy
+
+    qiime feature-table merge \
+      --i-tables table_Plate1.qza \
+      --i-tables table_Plate2.qza \
+      --p-overlap-method sum \
+      --o-merged-table merged-table.qza
+
+    qiime feature-table summarize \
+        --i-table merged-table.qza \
+        --m-sample-metadata-file metadata.txt \
+        --o-visualization merged-table
+        
+    qiime feature-table merge-seqs \
+      --i-data rep-seqs_Plate1.qza \
+      --i-data rep-seqs_Plate2.qza \
+      --o-merged-data merged_rep-seqs.qza
+
+    qiime feature-table tabulate-seqs \
+      --i-data merged_rep-seqs.qza \
+      --o-visualization merged_rep-seqs.qzv
 
 ## 4. Assign taxonomy
 
@@ -194,6 +257,19 @@ comparable, and this works now.
       --m-input-file taxonomy.qza \
       --o-visualization taxonomy.qzv
 
+### 2024 Samples
+
+Using the classifier from 2023.
+
+    qiime feature-classifier classify-sklearn \
+      --i-classifier ../2023/classifier.qza \
+      --i-reads merged_rep-seqs.qza \
+      --o-classification taxonomy.qza
+      
+    qiime metadata tabulate \
+      --m-input-file taxonomy.qza \
+      --o-visualization taxonomy.qzv
+
 ## 5. Make some barplots
 
 Just to see what’s in the samples.
@@ -208,6 +284,17 @@ Just to see what’s in the samples.
 
 Same as above. Massive diversity of insects. Also some rodent and bear
 DNA!
+
+### 2024 Samples
+
+    qiime taxa barplot \
+      --i-table merged-table.qza \
+      --i-taxonomy taxonomy.qza \
+      --m-metadata-file metadata.txt \
+      --o-visualization barplot_before_filtering.qzv
+
+Massive diversity of insects again. Bear, chipmunk, and red squirrel
+come up too.
 
 ## 6. Remove non-arthropod reads and drop mock community and blanks
 
@@ -288,3 +375,112 @@ depth of the samples.
         --i-table table_ArthropodaC.qza \
         --m-sample-metadata-file metadata.txt \
         --o-visualization table_ArthropodaC
+
+### 2024 Samples
+
+Same as 2023 code for selecting Arthropods with a class identified, but
+done on the merged table.
+
+    qiime taxa filter-table \
+      --i-table merged-table.qza \
+      --i-taxonomy taxonomy.qza \
+      --p-include "Arthropoda;c_" \
+      --o-filtered-table table_ArthropodaC.qza
+      
+    qiime feature-table summarize \
+        --i-table table_ArthropodaC.qza \
+        --m-sample-metadata-file metadata.txt \
+        --o-visualization table_ArthropodaC
+
+Calculate depth of samples vs blanks
+
+``` r
+source("/Users/gc547/Dropbox/GitHub_copied/Fecal_metabarcoding/Scripts/read_depth_analysis.R")
+
+results <- analyze_read_depths(
+  feature_table_path = "2024/table_ArthropodaC.qza",
+  taxonomy_path = "2024/taxonomy.qza",
+  metadata_path = "2024/metadata.txt",
+  output_folder = "2024/", # 
+  save_output = TRUE
+)
+```
+
+    ## `summarise()` has grouped output by 'SampleID', 'Type'. You can override using
+    ## the `.groups` argument.
+    ## `summarise()` has grouped output by 'Type'. You can override using the
+    ## `.groups` argument.
+    ## `summarise()` has grouped output by 'SampleID'. You can override using the
+    ## `.groups` argument.
+
+    ## 
+    ## ### Read Depth Summary - Plate 1
+    ## 
+    ## 
+    ## Table: Summary of read depths by sample type - Plate 1
+    ## 
+    ## |Type     |Plate | Mean Reads| Median Reads|  SD Reads|  n| % of Sample Reads|
+    ## |:--------|:-----|----------:|------------:|---------:|--:|-----------------:|
+    ## |EXTBLANK |1     |      38.50|          154|        NA|  4|              0.07|
+    ## |MOCK     |1     |  317901.00|       317901|        NA|  1|            595.04|
+    ## |SAMPLE   |1     |   53425.19|        12830| 134347.14| 69|            100.00|
+    ## |PCRBLANK |1     |     184.00|          184|    257.39|  2|              0.34|
+    ## 
+    ## 
+    ## ### Read Depth Summary - Plate 2
+    ## 
+    ## 
+    ## Table: Summary of read depths by sample type - Plate 2
+    ## 
+    ## |Type     |Plate | Mean Reads| Median Reads| SD Reads|  n| % of Sample Reads|
+    ## |:--------|:-----|----------:|------------:|--------:|--:|-----------------:|
+    ## |MOCK     |2     |   31465.00|      31465.0|       NA|  1|            694.78|
+    ## |SAMPLE   |2     |    4528.75|       2350.5|  5698.36|  4|            100.00|
+    ## |EXTBLANK |2     |       0.00|          0.0|     0.00|  1|              0.00|
+    ## |PCRBLANK |2     |       0.00|          0.0|     0.00|  1|              0.00|
+    ## 
+    ## 
+    ## ### Read Depth Summary - All Plates Combined
+    ## 
+    ## 
+    ## Table: Summary of read depths by sample type - All Plates Combined
+    ## 
+    ## |Type     | Mean Reads| Median Reads|  SD Reads|  n| % of Sample Reads|
+    ## |:--------|----------:|------------:|---------:|--:|-----------------:|
+    ## |EXTBLANK |      30.80|          154|        NA|  5|              0.06|
+    ## |MOCK     |  174683.00|       174683| 202540.84|  2|            344.23|
+    ## |SAMPLE   |   50745.93|        12729| 131047.03| 73|            100.00|
+    ## |PCRBLANK |     122.67|          184|    257.39|  3|              0.24|
+
+The extraction blanks have 0.06% the depth of the samples, while the PCR
+blanks have 0.24% the depth of the samples on average, so we are safe to
+drop them and proceed.
+
+Drop the blanks and mock community and then filter the rep-seqs for just
+the species that are in the table_ArthropodaC.qza.
+
+    qiime feature-table filter-samples \
+      --i-table table_ArthropodaC.qza \
+      --m-metadata-file metadata.txt \
+      --p-where "Species='MOCH'" \
+      --o-filtered-table table_ArthropodaC_MOCH.qza
+
+    qiime feature-table filter-seqs \
+      --i-data merged_rep-seqs.qza \
+      --i-table table_ArthropodaC_MOCH.qza \
+      --o-filtered-data rep-seqs_ArthropodaC_MOCH.qza
+
+    qiime metadata tabulate \
+      --m-input-file rep-seqs_ArthropodaC_MOCH.qza \
+      --m-input-file taxonomy.qza \
+      --o-visualization sequence_taxonomy_2024ArthropodaMOCH.qzv
+
+Also make a barplot.
+
+    qiime taxa barplot \
+      --i-table table_ArthropodaC_MOCH.qza \
+      --m-metadata-file metadata.txt \
+      --i-taxonomy taxonomy.qza \
+      --o-visualization barplot_ArthropodaC_MOCH
+
+Have not sent anything to Lauren yet.
